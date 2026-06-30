@@ -154,10 +154,8 @@ banned-products-commands: partitions=1, RF=3, min.isr=2
 analytics-events        : partitions=3, RF=3, min.isr=2
 ```
 
-**Доказательства в файлах:**
-- `report/02_dc1_topics.txt` — список и `--describe` всех топиков ЦОД-1
-- `report/10_recommendations.txt` — сообщения из топика `recommendations`
-- `report/08_filtered_products.txt` — данные в File Sink (косвенно: данные дошли до хранилища)
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 ---
 
@@ -185,9 +183,8 @@ KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"   # межброкерный PLAINT
 KAFKA_SUPER_USERS: User:ANONYMOUS               # брокеры общаются без auth
 ```
 
-**Доказательства в файлах:**
-- `report/05_tls_check.txt` — результат `openssl s_client`: Protocol, Cipher, Verify OK
-- `report/04_acl_rules.txt` — вывод `kafka-acls --list`
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 ---
 
@@ -203,9 +200,8 @@ KAFKA_DEFAULT_REPLICATION_FACTOR: 3
 KAFKA_MIN_INSYNC_REPLICAS: 2
 ```
 
-**Доказательства в файлах:**
-- `report/02_dc1_topics.txt` — `--describe` каждого топика: поля `ReplicationFactor`, `Isr`, `Configs: min.insync.replicas=2`
-- `report/03_dc2_topics.txt` — аналогично для ЦОД-2
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 Пример вывода `kafka-topics --describe`:
 ```
@@ -240,9 +236,8 @@ dc2->dc1.enabled = false
 
 MirrorMaker2 также создаёт служебные топики в ЦОД-2: `heartbeats`, `mm2-offsets.dc1.internal`, `mm2-status.dc1.internal`.
 
-**Доказательства в файлах:**
-- `report/06_mirrormaker2_status.txt` — логи MM2, наличие heartbeat-топиков в ЦОД-2, сообщения в `dc1.products-filtered`
-- `report/03_dc2_topics.txt` — список топиков ЦОД-2 с префиксом `dc1.*`
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 ---
 
@@ -281,8 +276,8 @@ curl http://<IP>:6066/banned/list
 | `55555` | Запрещённый препарат — не подлежит продаже |
 | `BAN-001` | SKU в списке запрещённых |
 
-**Доказательства в файлах:**
-- `report/09_faust_banned_list.txt` — вывод `/banned/list` и логи Faust с записями `[BANNED]` и `[ALLOWED]`
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 Пример лога Faust:
 ```
@@ -322,9 +317,8 @@ curl http://localhost:8083/connectors/products-file-sink/status
 # → {"connector":{"state":"RUNNING"},"tasks":[{"id":0,"state":"RUNNING"}]}
 ```
 
-**Доказательства в файлах:**
-- `report/07_connect_status.txt` — статус коннектора `RUNNING`
-- `report/08_filtered_products.txt` — содержимое `data/filtered-products.json` с разрешёнными товарами
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 ---
 
@@ -348,8 +342,8 @@ curl http://localhost:8083/connectors/products-file-sink/status
 
 **Цикл:** каждые 30 секунд анализирует накопленный батч и публикует результаты.
 
-**Доказательства в файлах:**
-- `report/10_recommendations.txt` — сообщения из топика `recommendations` с полями `user_id`, `recommendations[]`, `source_dc: dc2-spb`
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 ---
 
@@ -382,8 +376,8 @@ recommendations: partitions=3, RF=3, min.isr=2
 
 CLIENT API (`services/shop-api/client_api.py`) подписывается на этот топик командой `recommend` и выводит рекомендации пользователю в терминале.
 
-**Доказательства в файлах:**
-- `report/10_recommendations.txt` — 1–5 сообщений из топика `recommendations` в формате JSON
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 ---
 
@@ -434,8 +428,8 @@ KAFKA_OPTS: -javaagent:/opt/jmx_exporter/jmx_prometheus_javaagent.jar=7071:/etc/
 
 Интервал сбора: 15 секунд. Retention TSDB: 2 дня.
 
-**Доказательства в файлах:**
-- `report/11_prometheus_metrics.txt` — статус всех 6 брокеров (UP/DOWN), msg/sec, активные алерты
+**Доказательства:** см. `report/CRITERIA_REPORT_20260630_182638.md`
+
 
 ---
 
@@ -464,22 +458,27 @@ KAFKA_OPTS: -javaagent:/opt/jmx_exporter/jmx_prometheus_javaagent.jar=7071:/etc/
 
 ## Файлы доказательств (папка `report/`)
 
+В репозитории хранятся итоговые отчёты. Детальные логи (`NN_*.txt`) генерируются
+при запуске `bash scripts/collect-report.sh` на работающей системе и не хранятся в репо.
+
 | Файл | Содержимое | Критерий |
 |---|---|---|
-| `01_containers_status.txt` | Статус всех 24 контейнеров | 1, все |
-| `02_dc1_topics.txt` | Топики + describe ЦОД-1 (RF, ISR, partitions) | 1, 3 |
-| `03_dc2_topics.txt` | Топики + describe ЦОД-2 (dc1.* топики) | 3, 4 |
-| `04_acl_rules.txt` | Список ACL-правил | 2 |
-| `05_tls_check.txt` | Вывод openssl s_client (Protocol, Verify OK) | 2 |
-| `06_mirrormaker2_status.txt` | Логи MM2 + сообщения в dc1.products-filtered | 4 |
-| `07_connect_status.txt` | Статус File Sink Connector (RUNNING) | 6 |
-| `08_filtered_products.txt` | Содержимое data/filtered-products.json | 6 |
-| `09_faust_banned_list.txt` | Бан-лист + логи [BANNED]/[ALLOWED] | 5 |
-| `10_recommendations.txt` | JSON-сообщения из топика recommendations | 7, 8 |
-| `11_prometheus_metrics.txt` | Брокеры UP/DOWN, msg/sec, алерты | 9 |
-| `12_resource_usage.txt` | RAM, CPU, диск, docker stats | — |
-| `00_SUMMARY_<ts>.txt` | Сводный отчёт автогенерации | все |
-| `PROJECT_REPORT.md` | Этот документ | 10 |
+| `CRITERIA_REPORT_20260630_182638.md` | Данные с работающей системы по каждому критерию: статус контейнеров, топики, TLS, ACL, MirrorMaker2, Faust, Connect, рекомендации, метрики Prometheus | все |
+| `PROJECT_REPORT.md` | Этот документ: архитектура, технологии, логика реализации | 10 |
+
+### Что содержит CRITERIA_REPORT
+
+| Раздел | Данные | Критерий |
+|---|---|---|
+| Критерий 1 | Статус 22 контейнеров (все healthy/running) | 1 |
+| Критерий 2 | TLS: `TLSv1.3, Cipher TLS_AES_256_GCM_SHA384, Verify OK`; ACL-правила | 2 |
+| Критерий 3 | `kafka-topics --describe`: RF=3, ISR=3, min.isr=2 для всех топиков | 3 |
+| Критерий 4 | Топики ЦОД-2 с префиксом `dc1.*`; логи MirrorMaker2 | 4 |
+| Критерий 5 | Faust `/banned/list`: 3 товара; логи `[BANNED]`/`[ALLOWED]` | 5 |
+| Критерий 6 | Connect статус `RUNNING`; 700+ записей в `filtered-products.json` | 6 |
+| Критерий 7–8 | JSON из топика `recommendations`, `source_dc: dc2-spb` | 7, 8 |
+| Критерий 9 | Prometheus: 6/6 брокеров UP; Alertmanager: алертов нет | 9 |
+| Критерий 10 | Ссылки на документацию | 10 |
 
 ---
 
