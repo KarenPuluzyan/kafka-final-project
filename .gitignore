@@ -1,0 +1,36 @@
+# Секреты Terraform
+terraform/terraform.tfvars
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+
+# SSL приватные ключи
+ssl/
+
+# Бинарники (скачиваются скриптом)
+*.jar
+
+# Данные генерируемые при работе
+data/filtered-products.json
+
+# Рабочие логи отчёта
+report/00_SUMMARY_*.txt
+report/01_*.txt
+report/02_*.txt
+report/03_*.txt
+report/04_*.txt
+report/05_*.txt
+report/06_*.txt
+report/07_*.txt
+report/08_*.txt
+report/09_*.txt
+report/10_*.txt
+report/11_*.txt
+report/12_*.txt
+
+# Артефакт распаковки
+{scripts,config,ssl,data,services
+
+# Python
+__pycache__/
+*.pyc

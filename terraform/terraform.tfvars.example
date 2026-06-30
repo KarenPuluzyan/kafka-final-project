@@ -1,0 +1,21 @@
+# Скопируйте в terraform.tfvars и заполните:
+#   cp terraform.tfvars.example terraform.tfvars
+
+# yc iam create-token
+yc_token = "YOUR_IAM_TOKEN"
+
+# yc config get cloud-id
+yc_cloud_id = "YOUR_CLOUD_ID"
+
+# yc config get folder-id
+yc_folder_id = "YOUR_FOLDER_ID"
+
+# Зона доступности
+yc_zone = "ru-central1-a"
+
+# Путь к SSH-ключу (должен существовать)
+# Создать: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
+ssh_public_key_path = "~/.ssh/id_rsa.pub"
+
+# URL вашего репозитория
+repo_url = "https://github.com/KarenPuluzyan/kafka-final-project.git"

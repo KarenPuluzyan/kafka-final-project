@@ -1,0 +1,56 @@
+# ============================================================
+# Правила алертов — оба кластера
+# ============================================================
+groups:
+  - name: kafka_broker_alerts
+    interval: 30s
+    rules:
+
+      - alert: KafkaBrokerDown
+        expr: up{job=~"dc[12]-kafka-.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "🔴 Kafka брокер недоступен [{{ $labels.dc }} / {{ $labels.broker }}]"
+          description: >
+            Брокер {{ $labels.broker }} в ЦОД {{ $labels.dc }} ({{ $labels.city }})
+            не отвечает более 1 минуты. Требуется немедленное вмешательство!
+
+      - alert: KafkaDC1AllBrokersDown
+        expr: count(up{dc="dc1"} == 1) == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "🚨 ЦОД-1 (Москва) полностью недоступен!"
+          description: "Все брокеры ЦОД-1 не отвечают. Данные обслуживаются через ЦОД-2."
+
+      - alert: KafkaDC2AllBrokersDown
+        expr: count(up{dc="dc2"} == 1) == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "🚨 ЦОД-2 (Санкт-Петербург) полностью недоступен!"
+          description: "Все брокеры ЦОД-2 не отвечают. Аналитика остановлена."
+
+      - alert: KafkaConsumerGroupLag
+        expr: kafka_consumer_group_lag_sum > 10000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "⚠️ Высокое отставание consumer group {{ $labels.consumergroup }}"
+          description: "Отставание: {{ $value }} сообщений"
+
+      - alert: KafkaDiskUsageHigh
+        expr: >
+          (node_filesystem_avail_bytes{mountpoint="/"} /
+           node_filesystem_size_bytes{mountpoint="/"}) < 0.2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "⚠️ Диск заполнен более чем на 80%"
+          description: "Свободно менее 20% дискового пространства"

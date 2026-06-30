@@ -1,0 +1,64 @@
+# ============================================================
+# Prometheus — мониторинг обоих кластеров Kafka
+# Prometheus живёт в backbone-net и видит JMX Exporter
+# всех 6 брокеров через проброшенные порты
+# ============================================================
+
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  scrape_timeout:      10s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: [alertmanager:9093]
+
+rule_files:
+  - /etc/prometheus/alert-rules.yml
+
+scrape_configs:
+
+  # ── ЦОД-1 Москва: JMX Exporter всех брокеров ─────────────
+  - job_name: 'dc1-kafka-1'
+    static_configs:
+      - targets: ['kafka-1:7071']
+        labels: {dc: dc1, broker: kafka-1, city: Moscow}
+
+  - job_name: 'dc1-kafka-2'
+    static_configs:
+      - targets: ['kafka-2:7071']
+        labels: {dc: dc1, broker: kafka-2, city: Moscow}
+
+  - job_name: 'dc1-kafka-3'
+    static_configs:
+      - targets: ['kafka-3:7071']
+        labels: {dc: dc1, broker: kafka-3, city: Moscow}
+
+  # ── ЦОД-2 Санкт-Петербург: JMX Exporter всех брокеров ────
+  - job_name: 'dc2-kafka-4'
+    static_configs:
+      - targets: ['kafka-4:7071']
+        labels: {dc: dc2, broker: kafka-4, city: SPb}
+
+  - job_name: 'dc2-kafka-5'
+    static_configs:
+      - targets: ['kafka-5:7071']
+        labels: {dc: dc2, broker: kafka-5, city: SPb}
+
+  - job_name: 'dc2-kafka-6'
+    static_configs:
+      - targets: ['kafka-6:7071']
+        labels: {dc: dc2, broker: kafka-6, city: SPb}
+
+  # ── Kafka Connect (ЦОД-1) ─────────────────────────────────
+  - job_name: 'kafka-connect'
+    static_configs:
+      - targets: ['kafka-connect:8083']
+        labels: {dc: dc1}
+    metrics_path: /metrics
+
+  # ── Сам Prometheus ────────────────────────────────────────
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

@@ -1,0 +1,131 @@
+[
+  {
+    "product_id": "12345",
+    "name": "Умные часы XYZ",
+    "description": "Умные часы с функцией мониторинга здоровья, GPS и уведомлениями.",
+    "price": {"amount": 4999.99, "currency": "RUB"},
+    "category": "Электроника",
+    "brand": "XYZ",
+    "stock": {"available": 150, "reserved": 20},
+    "sku": "XYZ-12345",
+    "tags": ["умные часы", "гаджеты", "технологии"],
+    "images": [
+      {"url": "https://example.com/images/product1.jpg", "alt": "Умные часы XYZ - вид спереди"},
+      {"url": "https://example.com/images/product1_side.jpg", "alt": "Умные часы XYZ - вид сбоку"}
+    ],
+    "specifications": {
+      "weight": "50g",
+      "dimensions": "42mm x 36mm x 10mm",
+      "battery_life": "24 hours",
+      "water_resistance": "IP68"
+    },
+    "created_at": "2024-10-01T12:00:00Z",
+    "updated_at": "2024-10-10T15:30:00Z",
+    "index": "products",
+    "store_id": "store_001"
+  },
+  {
+    "product_id": "22222",
+    "name": "Нелегальный товар А",
+    "description": "Этот товар входит в список запрещённых.",
+    "price": {"amount": 100.00, "currency": "RUB"},
+    "category": "Запрещённые",
+    "brand": "BannedBrand",
+    "stock": {"available": 10, "reserved": 0},
+    "sku": "BAN-001",
+    "tags": ["запрещено"],
+    "images": [],
+    "specifications": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z",
+    "index": "products",
+    "store_id": "store_999"
+  },
+  {
+    "product_id": "33333",
+    "name": "Ноутбук ProBook 15",
+    "description": "Мощный ноутбук для работы и учёбы с экраном 15.6 дюйма.",
+    "price": {"amount": 89990.00, "currency": "RUB"},
+    "category": "Электроника",
+    "brand": "ProBook",
+    "stock": {"available": 50, "reserved": 5},
+    "sku": "PB-15-2024",
+    "tags": ["ноутбук", "компьютер", "электроника"],
+    "images": [
+      {"url": "https://example.com/images/laptop1.jpg", "alt": "ProBook 15"}
+    ],
+    "specifications": {
+      "cpu": "Intel Core i7",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "display": "15.6 inch FHD"
+    },
+    "created_at": "2024-09-01T10:00:00Z",
+    "updated_at": "2024-10-05T12:00:00Z",
+    "index": "products",
+    "store_id": "store_002"
+  },
+  {
+    "product_id": "44444",
+    "name": "Беспроводные наушники SoundMax",
+    "description": "Качественные беспроводные наушники с шумоподавлением.",
+    "price": {"amount": 12999.00, "currency": "RUB"},
+    "category": "Электроника",
+    "brand": "SoundMax",
+    "stock": {"available": 200, "reserved": 30},
+    "sku": "SM-NC-200",
+    "tags": ["наушники", "аудио", "беспроводные"],
+    "images": [
+      {"url": "https://example.com/images/headphones.jpg", "alt": "SoundMax NC200"}
+    ],
+    "specifications": {
+      "battery_life": "30 hours",
+      "driver_size": "40mm",
+      "frequency_response": "20Hz-20kHz"
+    },
+    "created_at": "2024-08-15T09:00:00Z",
+    "updated_at": "2024-09-20T11:00:00Z",
+    "index": "products",
+    "store_id": "store_003"
+  },
+  {
+    "product_id": "55555",
+    "name": "Запрещённый препарат Б",
+    "description": "Запрещённый к продаже товар.",
+    "price": {"amount": 500.00, "currency": "RUB"},
+    "category": "Запрещённые",
+    "brand": "FakeMed",
+    "stock": {"available": 5, "reserved": 0},
+    "sku": "BAN-002",
+    "tags": ["запрещено"],
+    "images": [],
+    "specifications": {},
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z",
+    "index": "products",
+    "store_id": "store_888"
+  },
+  {
+    "product_id": "66666",
+    "name": "Кофемашина DeLuxe",
+    "description": "Профессиональная кофемашина для дома и офиса.",
+    "price": {"amount": 45000.00, "currency": "RUB"},
+    "category": "Бытовая техника",
+    "brand": "DeLuxe",
+    "stock": {"available": 30, "reserved": 3},
+    "sku": "DL-CM-500",
+    "tags": ["кофе", "кофемашина", "бытовая техника"],
+    "images": [
+      {"url": "https://example.com/images/coffee.jpg", "alt": "DeLuxe CM500"}
+    ],
+    "specifications": {
+      "pressure": "15 bar",
+      "capacity": "1.5L",
+      "power": "1450W"
+    },
+    "created_at": "2024-07-01T08:00:00Z",
+    "updated_at": "2024-10-01T10:00:00Z",
+    "index": "products",
+    "store_id": "store_004"
+  }
+]

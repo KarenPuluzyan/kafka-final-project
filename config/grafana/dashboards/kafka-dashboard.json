@@ -1,0 +1,133 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "description": "Kafka Cluster Monitoring — Финальный проект «Покупай выгодно»",
+  "editable": true,
+  "graphTooltip": 1,
+  "id": null,
+  "panels": [
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {
+            "steps": [
+              {"color": "red", "value": 0},
+              {"color": "green", "value": 1}
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+      "id": 1,
+      "options": {"colorMode": "background", "graphMode": "none", "justifyMode": "center"},
+      "title": "Брокеры онлайн",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "count(up{job=~\"kafka-broker-.*\"} == 1)",
+          "legendFormat": "Брокеры онлайн"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {"unit": "short"}
+      },
+      "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
+      "id": 2,
+      "title": "Активные топики",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "count(kafka_server_ReplicaManager_LeaderCount)",
+          "legendFormat": "Топики"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {"unit": "reqps"}
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4},
+      "id": 3,
+      "title": "Количество запросов к Kafka (req/sec)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(kafka_network_RequestMetrics_RequestsPerSec_rate1m[1m])",
+          "legendFormat": "{{broker}} — {{request}}"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {"unit": "bytes"}
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+      "id": 4,
+      "title": "Входящий/Исходящий трафик байт/сек",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(kafka_server_BrokerTopicMetrics_BytesInPerSec_rate1m[1m])",
+          "legendFormat": "IN — {{broker}}"
+        },
+        {
+          "expr": "rate(kafka_server_BrokerTopicMetrics_BytesOutPerSec_rate1m[1m])",
+          "legendFormat": "OUT — {{broker}}"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {"unit": "bytes"}
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
+      "id": 5,
+      "title": "JVM Heap Memory",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "jvm_heap_memory_used_bytes",
+          "legendFormat": "Used — {{broker}}"
+        },
+        {
+          "expr": "jvm_heap_memory_max_bytes",
+          "legendFormat": "Max — {{broker}}"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {"unit": "ms"}
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
+      "id": 6,
+      "title": "Время обработки запросов (мс)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "kafka_network_RequestMetrics_TotalTimeMs",
+          "legendFormat": "{{broker}} — {{request}}"
+        }
+      ]
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": ["kafka", "marketplace"],
+  "time": {"from": "now-1h", "to": "now"},
+  "title": "Kafka Marketplace Monitoring",
+  "uid": "kafka-marketplace",
+  "version": 1
+}
