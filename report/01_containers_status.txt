@@ -1,0 +1,24 @@
+NAME            STATUS                    PORTS
+alertmanager    Up 43 minutes             0.0.0.0:9093->9093/tcp, [::]:9093->9093/tcp
+analytics       Up 31 minutes             
+faust-filter    Up 13 minutes             0.0.0.0:6066->6066/tcp, [::]:6066->6066/tcp
+grafana         Up 43 minutes             0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp
+kafka-1         Up 33 minutes (healthy)   9092/tcp, 0.0.0.0:19092-19093->19092-19093/tcp, [::]:19092-19093->19092-19093/tcp
+kafka-2         Up 33 minutes (healthy)   9092/tcp, 0.0.0.0:19094-19095->19094-19095/tcp, [::]:19094-19095->19094-19095/tcp
+kafka-3         Up 33 minutes (healthy)   9092/tcp, 0.0.0.0:19096-19097->19096-19097/tcp, [::]:19096-19097->19096-19097/tcp
+kafka-4         Up 33 minutes (healthy)   9092/tcp, 0.0.0.0:29092->29092/tcp, [::]:29092->29092/tcp
+kafka-5         Up 33 minutes (healthy)   9092/tcp, 0.0.0.0:29094->29094/tcp, [::]:29094->29094/tcp
+kafka-6         Up 33 minutes (healthy)   9092/tcp, 0.0.0.0:29096->29096/tcp, [::]:29096->29096/tcp
+kafka-connect   Up 22 minutes (healthy)   0.0.0.0:8083->8083/tcp, [::]:8083->8083/tcp, 9092/tcp
+kafka-ui-dc1    Up 31 minutes             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+kafka-ui-dc2    Up 31 minutes             0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+mirrormaker2    Up 31 minutes             9092/tcp
+prometheus      Up 43 minutes             0.0.0.0:9090->9090/tcp, [::]:9090->9090/tcp
+shop-api        Up 31 minutes             
+zk1-1           Up 43 minutes (healthy)   2181/tcp, 2888/tcp, 3888/tcp
+zk1-2           Up 43 minutes (healthy)   2181/tcp, 2888/tcp, 3888/tcp
+zk1-3           Up 43 minutes (healthy)   2181/tcp, 2888/tcp, 3888/tcp
+zk2-1           Up 43 minutes (healthy)   2181/tcp, 2888/tcp, 3888/tcp
+zk2-2           Up 43 minutes (healthy)   2181/tcp, 2888/tcp, 3888/tcp
+zk2-3           Up 43 minutes (healthy)   2181/tcp, 2888/tcp, 3888/tcp
+Запущено: 22 / 22

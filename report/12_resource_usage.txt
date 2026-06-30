@@ -1,0 +1,25 @@
+=== Память ===
+               total        used        free      shared  buff/cache   available
+Mem:            62Gi       9.6Gi        45Gi       2.0Mi       7.4Gi        52Gi
+Swap:             0B          0B          0B
+
+=== CPU ===
+%Cpu(s):  0.4 us,  0.4 sy,  0.0 ni, 99.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+
+=== Диск ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        97G  7.9G   89G   9% /
+
+=== Потребление по контейнерам (top-10 по RAM) ===
+zk2-3           4.33%     102.8MiB / 62.79GiB   0.16%
+zk2-2           4.60%     113.4MiB / 62.79GiB   0.18%
+zk2-1           4.96%     108.8MiB / 62.79GiB   0.17%
+zk1-3           4.15%     120.3MiB / 62.79GiB   0.19%
+zk1-2           3.93%     103.1MiB / 62.79GiB   0.16%
+zk1-1           4.06%     116.1MiB / 62.79GiB   0.18%
+shop-api        0.23%     7.184MiB / 62.79GiB   0.01%
+prometheus      0.25%     52.35MiB / 62.79GiB   0.08%
+mirrormaker2    1.51%     487.9MiB / 62.79GiB   0.76%
+kafka-ui-dc2    1.27%     232.3MiB / 62.79GiB   0.36%
+kafka-ui-dc1    0.06%     253.6MiB / 62.79GiB   0.39%
+kafka-connect   0.68%     804.3MiB / 62.79GiB   1.25%

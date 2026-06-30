@@ -1,0 +1,5 @@
+=== TLS соединение с kafka-1:9093 ===
+CONNECTED(00000003)
+New, (NONE), Cipher is (NONE)
+Verify return code: 0 (ok)
+[TLS соединение не установлено]
